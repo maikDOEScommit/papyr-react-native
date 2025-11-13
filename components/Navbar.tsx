@@ -5,6 +5,7 @@ import { getAppState } from '@/lib/storage';
 import { getTimeUntilNextWindow, formatCountdown } from '@/lib/countdown';
 import { isWithinWolfHour } from '@/lib/storage';
 import { useAuth } from '@/lib/supabase/context';
+import { useI18n } from '@/lib/i18n/context';
 
 interface NavbarProps {
   currentView: 'dashboard' | 'archive' | 'settings' | 'shop' | 'rules' | 'subscription';
@@ -20,20 +21,11 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
   const appState = getAppState();
   const [countdown, setCountdown] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const { profile } = useAuth();
-  const [language, setLanguage] = useState<'de' | 'en'>('de');
-
-  // Load language preference from localStorage
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('papyr_language') as 'de' | 'en';
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
+  const { t, language, setLanguage } = useI18n();
 
   const toggleLanguage = () => {
     const newLanguage = language === 'de' ? 'en' : 'de';
     setLanguage(newLanguage);
-    localStorage.setItem('papyr_language', newLanguage);
   };
 
   // Update countdown every second
@@ -97,13 +89,13 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
             <div className="flex items-center justify-center absolute left-1/2 -translate-x-1/2">
               <div className="flex items-center gap-2">
                 <span className="text-2xl md:text-3xl text-black whitespace-nowrap font-medium">
-                  Heute wurden
+                  {t('navbar.todaySubmitted')}
                 </span>
                 <span className="text-2xl md:text-3xl font-bold text-black">
                   {globalPulse.toLocaleString()}
                 </span>
                 <span className="text-2xl md:text-3xl text-black whitespace-nowrap font-medium">
-                  Zettel abgegeben
+                  {t('navbar.papersSubmitted')}
                 </span>
               </div>
             </div>
@@ -141,7 +133,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
               {(profile?.user_name || appState.userName) && (
                 <div className="pb-2 border-b space-y-2" style={{ borderColor: '#2d2e2e' }}>
                   <div className="text-black/70 text-base font-medium flex items-center gap-2">
-                    <span>Hallo, {profile?.user_name || appState.userName}</span>
+                    <span>{t('navbar.hello')}, {profile?.user_name || appState.userName}</span>
 
                     {/* Language Toggle */}
                     <button
@@ -155,14 +147,14 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
 
                     {profile?.is_pro && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 text-white shadow-sm">
-                        ✨ Pro
+                        ✨ {t('navbar.proBadge')}
                       </span>
                     )}
                   </div>
 
                   {/* Streak Row */}
                   <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-bold text-black w-14">STREAK</span>
+                    <span className="text-xs font-bold text-black w-14">{t('navbar.streak')}</span>
                     <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center shadow-md">
                       <span className="text-xs font-bold text-white">{appState.currentStreak}</span>
                     </div>
@@ -170,7 +162,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
 
                   {/* Joker Row */}
                   <div className="flex items-center gap-1.5 mt-2">
-                    <span className="text-xs font-bold text-black w-14">JOKER</span>
+                    <span className="text-xs font-bold text-black w-14">{t('navbar.joker')}</span>
                     <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
                       <span className="text-xs font-bold text-white">{appState.jokers}</span>
                     </div>
@@ -189,7 +181,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                     : 'text-black hover:bg-black/10'
                 }`}
               >
-                {colorFourthLetter('Dashboard')}
+                {colorFourthLetter(t('navbar.dashboard'))}
               </button>
               <button
                 onClick={() => {
@@ -203,7 +195,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                     : 'text-black hover:bg-black/10'
                 }`}
               >
-                {colorFourthLetter('Archiv')}
+                {colorFourthLetter(t('navbar.archive'))}
               </button>
               <button
                 onClick={() => {
@@ -213,7 +205,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                 style={menuStyle}
                 className="block w-full text-left px-3 py-2 rounded-lg text-lg font-bold text-black hover:bg-black/10"
               >
-                {colorFourthLetter('Inspiration')}
+                {colorFourthLetter(t('navbar.inspiration'))}
               </button>
               <button
                 onClick={() => {
@@ -227,7 +219,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                     : 'text-black hover:bg-black/10'
                 }`}
               >
-                {colorFourthLetter('Shop')}
+                {colorFourthLetter(t('navbar.shop'))}
               </button>
               <button
                 onClick={() => {
@@ -241,7 +233,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                     : 'text-black hover:bg-black/10'
                 }`}
               >
-                {colorFourthLetter('Einstellungen')}
+                {colorFourthLetter(t('navbar.settings'))}
               </button>
               <button
                 onClick={() => {
@@ -255,7 +247,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                     : 'text-black hover:bg-black/10'
                 }`}
               >
-                {colorFourthLetter('Spielregeln')}
+                {colorFourthLetter(t('navbar.rules'))}
               </button>
             </div>
           </div>
@@ -275,7 +267,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
             {(profile?.user_name || appState.userName) && (
               <>
                 <div className="text-black text-xl font-bold mb-3 flex items-center gap-3 flex-wrap">
-                  <span>Hallo, {profile?.user_name || appState.userName}!</span>
+                  <span>{t('navbar.hello')}, {profile?.user_name || appState.userName}!</span>
 
                   {/* Language Toggle */}
                   <button
@@ -289,14 +281,14 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
 
                   {profile?.is_pro && (
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 text-white shadow-md">
-                      ✨ Pro
+                      ✨ {t('navbar.proBadge')}
                     </span>
                   )}
                 </div>
 
                 {/* Streak Row */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-black w-16">STREAK</span>
+                  <span className="text-xs font-bold text-black w-16">{t('navbar.streak')}</span>
                   <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center shadow-md">
                     <span className="text-sm font-bold text-white">{appState.currentStreak}</span>
                   </div>
@@ -304,7 +296,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
 
                 {/* Joker Row */}
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-xs font-bold text-black w-16">JOKER</span>
+                  <span className="text-xs font-bold text-black w-16">{t('navbar.joker')}</span>
                   <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
                     <span className="text-sm font-bold text-white">{appState.jokers}</span>
                   </div>
@@ -324,7 +316,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                   : 'text-black hover:bg-black/10'
               }`}
             >
-              {colorFourthLetter('Dashboard')}
+              {colorFourthLetter(t('navbar.dashboard'))}
             </button>
             <button
               onClick={() => onNavigate('archive')}
@@ -335,14 +327,14 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                   : 'text-black hover:bg-black/10'
               }`}
             >
-              {colorFourthLetter('Archiv')}
+              {colorFourthLetter(t('navbar.archive'))}
             </button>
             <button
               onClick={onOpenInspiration}
               style={menuStyle}
               className="w-full text-left px-4 py-3 rounded-lg text-xl font-bold text-black hover:bg-black/10 transition-all"
             >
-              {colorFourthLetter('Inspiration')}
+              {colorFourthLetter(t('navbar.inspiration'))}
             </button>
             <button
               onClick={() => onNavigate('shop')}
@@ -353,7 +345,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                   : 'text-black hover:bg-black/10'
               }`}
             >
-              {colorFourthLetter('Shop')}
+              {colorFourthLetter(t('navbar.shop'))}
             </button>
             <button
               onClick={() => onNavigate('settings')}
@@ -364,7 +356,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                   : 'text-black hover:bg-black/10'
               }`}
             >
-              {colorFourthLetter('Einstellungen')}
+              {colorFourthLetter(t('navbar.settings'))}
             </button>
             <button
               onClick={() => onNavigate('rules')}
@@ -375,7 +367,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
                   : 'text-black hover:bg-black/10'
               }`}
             >
-              {colorFourthLetter('Spielregeln')}
+              {colorFourthLetter(t('navbar.rules'))}
             </button>
           </nav>
 
@@ -387,7 +379,7 @@ export default function Navbar({ currentView, onNavigate, onOpenInspiration, sid
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border-2" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}>
               <div className="text-center">
                 <p className="text-xs font-medium mb-2" style={{ color: '#ffffff', opacity: 0.8 }}>
-                  Nächstes Upload-Fenster in:
+                  {t('navbar.nextUploadWindow')}
                 </p>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#ffffff' }}>
                   {formatCountdown(countdown.hours, countdown.minutes, countdown.seconds)}

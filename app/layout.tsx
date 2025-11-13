@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/supabase/context";
+import { I18nProvider } from "@/lib/i18n/context";
 
 export { viewport } from "./viewport";
 
@@ -31,7 +32,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased" style={{ fontFamily: "'Patrick Hand', cursive" }}>
         <AuthProvider>
-          {children}
+          <I18nProvider>
+            {children}
+          </I18nProvider>
         </AuthProvider>
       </body>
     </html>

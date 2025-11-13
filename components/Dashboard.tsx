@@ -18,6 +18,7 @@ import ConfirmDialog from './ConfirmDialog';
 import AddToHomeScreen from './AddToHomeScreen';
 import AuthModal from './AuthModal';
 import GoalsInputPopup from './GoalsInputPopup';
+import { useI18n } from '@/lib/i18n/context';
 
 interface DashboardProps {
   onUpload: () => void;
@@ -27,6 +28,7 @@ interface DashboardProps {
 
 export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: DashboardProps) {
   const { user, profile, loading: authLoading, refreshProfile } = useAuth();
+  const { t } = useI18n();
   const [commitments, setCommitments] = useState<Commitment[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -145,7 +147,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
       }
     } catch (error) {
       console.error('Error preparing image:', error);
-      alert('Fehler beim Vorbereiten des Bildes. Bitte versuche es erneut.');
+      alert(t('common.error'));
     }
   };
 
@@ -178,14 +180,14 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
       onUpload();
     } catch (error) {
       console.error('Error uploading commitment:', error);
-      alert('Fehler beim Hochladen. Bitte versuche es erneut.');
+      alert(t('common.error'));
     } finally {
       setUploading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Möchtest du diesen Zettel wirklich löschen? Das kann nicht rückgängig gemacht werden!')) {
+    if (!confirm(t('common.confirm'))) {
       return;
     }
 
@@ -194,7 +196,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
       await loadCommitments();
     } catch (error) {
       console.error('Error deleting commitment:', error);
-      alert('Fehler beim Löschen. Bitte versuche es erneut.');
+      alert(t('common.error'));
     }
   };
 
@@ -204,7 +206,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
       await loadCommitments();
     } catch (error) {
       console.error('Error marking as completed:', error);
-      alert('Fehler beim Markieren. Bitte versuche es erneut.');
+      alert(t('common.error'));
     }
   };
 
@@ -221,7 +223,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-2xl font-bold" style={{ color: '#2d2e2e' }}>
-          Lädt...
+          {t('common.loading')}
         </div>
       </div>
     );
@@ -378,10 +380,10 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
                 </>
               )}
               <h2 className="text-xl md:text-3xl font-bold mb-2 mt-8" style={{ color: '#2d2e2e' }}>
-                Schmiede Pläne..
+                {t('dashboard.title')}
               </h2>
               <p className="text-base md:text-lg mb-4" style={{ color: '#2d2e2e' }}>
-                Jeden Abend. Auf Papier. Schaffe dir Ziele.
+                {t('dashboard.subtitle')} {t('dashboard.subtitle2')}
               </p>
             </div>
 
@@ -415,7 +417,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
                     d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                {uploading ? 'Lädt...' : "Mach' deinen commit."}
+                {uploading ? t('common.loading') : t('dashboard.uploadButton')}
               </button>
               <input
                 ref={fileInputRef}
@@ -428,7 +430,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
 
               {!isWithinWolfHour() && (
                 <p className="text-sm mt-4 text-center" style={{ color: '#2d2e2e', opacity: 0.7 }}>
-                  ⏰ Die Stunde des Wolfs: 20:00 - 02:00 Uhr
+                  ⏰ {t('dashboard.wolfHour')}
                 </p>
               )}
             </div>
@@ -437,7 +439,7 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
           {/* Scroll Down Arrow - Bottom Right */}
           <div className="absolute bottom-20 right-[19.5rem] flex flex-col items-center gap-2 animate-bounce">
             <p className="font-bold text-lg transform rotate-12" style={{ color: '#2d2e2e' }}>
-              Zum Archiv
+              {t('dashboard.archiveTitle')}
             </p>
             <svg
               className="w-16 h-16 transform rotate-12"
@@ -543,13 +545,13 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
 
       {/* Already Committed Today Dialog */}
       <ConfirmDialog
-        title="✅ Gut gemacht!"
-        message={`Du hast heute bereits dein Bekenntnis abgelegt.\n\nDein Zettel ist dokumentiert und dein Streak läuft weiter.\n\nKomm morgen Abend zwischen 20:00 und 02:00 Uhr wieder, um deinen nächsten Zettel hochzuladen.\n\nBis morgen! 🔥`}
+        title={`✅ ${t('dashboard.alreadyCommittedTitle')}`}
+        message={t('dashboard.alreadyCommittedMessage')}
         isOpen={showAlreadyCommittedDialog}
         onClose={() => setShowAlreadyCommittedDialog(false)}
         buttons={[
           {
-            text: 'Verstanden',
+            text: t('dashboard.understood'),
             action: () => setShowAlreadyCommittedDialog(false),
             primary: true,
           },
@@ -558,13 +560,13 @@ export default function Dashboard({ onUpload, onPaywallRequired, globalPulse }: 
 
       {/* Wolf Hour Dialog */}
       <ConfirmDialog
-        title="⏰ Die Stunde des Wolfs"
-        message={`Das Upload-Fenster ist nur zwischen 20:00 und 02:00 Uhr geöffnet.\n\nDas ist die Zeit, in der du deine Pläne für den nächsten Tag schmiedest.\n\nKomm später wieder und lade deinen Zettel hoch.\n\nNächstes Fenster: ${formatCountdown(countdown.hours, countdown.minutes, countdown.seconds)}`}
+        title={`⏰ ${t('dashboard.outsideWolfHourTitle')}`}
+        message={t('dashboard.outsideWolfHourMessage')}
         isOpen={showWolfHourDialog}
         onClose={() => setShowWolfHourDialog(false)}
         buttons={[
           {
-            text: 'Verstanden',
+            text: t('dashboard.understood'),
             action: () => setShowWolfHourDialog(false),
             primary: true,
           },
