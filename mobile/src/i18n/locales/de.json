@@ -1,0 +1,104 @@
+{
+  "common": {
+    "appName": "PAPYR",
+    "continue": "Weiter",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "success": "Erfolgreich"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "emailPlaceholder": "deine@email.de",
+    "passwordPlaceholder": "Dein Passwort",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "signInWithGoogle": "Mit Google anmelden",
+    "signInWithApple": "Mit Apple anmelden",
+    "loginError": "Anmeldung fehlgeschlagen",
+    "registerError": "Registrierung fehlgeschlagen",
+    "invalidEmail": "Ungültige E-Mail-Adresse",
+    "weakPassword": "Passwort muss mindestens 6 Zeichen lang sein"
+  },
+  "wolfHour": {
+    "title": "Wolf Hour",
+    "active": "Wolf Hour ist aktiv!",
+    "inactive": "Wolf Hour beginnt um 20:00 Uhr",
+    "timeUntilStart": "Beginnt in",
+    "timeUntilEnd": "Endet in",
+    "uploadNow": "Jetzt hochladen!",
+    "cannotUpload": "Uploads nur während der Wolf Hour (20:00 - 02:00 Uhr)",
+    "description": "Uploads sind nur zwischen 20:00 und 02:00 Uhr möglich"
+  },
+  "commitment": {
+    "title": "Commitment",
+    "upload": "Commitment hochladen",
+    "takePhoto": "Foto aufnehmen",
+    "selectPhoto": "Foto auswählen",
+    "goalPlaceholder": "Was ist dein Ziel für heute?",
+    "uploadSuccess": "Commitment erfolgreich hochgeladen!",
+    "uploadError": "Upload fehlgeschlagen",
+    "noGoalText": "Bitte gib einen Zieltext ein",
+    "noImage": "Bitte wähle ein Bild aus",
+    "todayCommitment": "Heutiges Commitment",
+    "viewAll": "Alle anzeigen"
+  },
+  "streak": {
+    "title": "Streak",
+    "current": "Aktuelle Streak",
+    "longest": "Längste Streak",
+    "days": "Tage",
+    "keepGoing": "Weiter so!",
+    "broken": "Streak unterbrochen",
+    "startNew": "Starte eine neue Streak!"
+  },
+  "joker": {
+    "title": "Joker",
+    "available": "Verfügbar",
+    "used": "Verwendet",
+    "use": "Joker verwenden",
+    "description": "Verwende einen Joker um einen Tag zu überspringen",
+    "noJokersLeft": "Keine Joker mehr verfügbar",
+    "upgradeForMore": "Upgrade für mehr Joker"
+  },
+  "navigation": {
+    "home": "Home",
+    "archive": "Archiv",
+    "profile": "Profil"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "notifications": "Benachrichtigungen",
+    "subscription": "Abo",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "support": "Support",
+    "version": "Version"
+  },
+  "subscription": {
+    "free": "Kostenlos",
+    "basic": "Basic",
+    "pro": "Pro",
+    "upgrade": "Upgrade",
+    "current": "Aktuelles Abo",
+    "basicPrice": "0,99 €/Monat",
+    "proPrice": "2,99 €/Monat",
+    "basicFeatures": "1 Joker pro Woche",
+    "proFeatures": "2 Joker pro Woche + Exklusive Features"
+  },
+  "errors": {
+    "generic": "Ein Fehler ist aufgetreten",
+    "network": "Netzwerkfehler",
+    "unauthorized": "Nicht autorisiert",
+    "notFound": "Nicht gefunden"
+  }
+}

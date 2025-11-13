@@ -1,0 +1,104 @@
+{
+  "common": {
+    "appName": "PAPYR",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "your@email.com",
+    "passwordPlaceholder": "Your password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithApple": "Sign in with Apple",
+    "loginError": "Login failed",
+    "registerError": "Registration failed",
+    "invalidEmail": "Invalid email address",
+    "weakPassword": "Password must be at least 6 characters"
+  },
+  "wolfHour": {
+    "title": "Wolf Hour",
+    "active": "Wolf Hour is active!",
+    "inactive": "Wolf Hour starts at 8:00 PM",
+    "timeUntilStart": "Starts in",
+    "timeUntilEnd": "Ends in",
+    "uploadNow": "Upload now!",
+    "cannotUpload": "Uploads only during Wolf Hour (8:00 PM - 2:00 AM)",
+    "description": "Uploads are only possible between 8:00 PM and 2:00 AM"
+  },
+  "commitment": {
+    "title": "Commitment",
+    "upload": "Upload commitment",
+    "takePhoto": "Take photo",
+    "selectPhoto": "Select photo",
+    "goalPlaceholder": "What's your goal for today?",
+    "uploadSuccess": "Commitment uploaded successfully!",
+    "uploadError": "Upload failed",
+    "noGoalText": "Please enter a goal text",
+    "noImage": "Please select an image",
+    "todayCommitment": "Today's Commitment",
+    "viewAll": "View all"
+  },
+  "streak": {
+    "title": "Streak",
+    "current": "Current Streak",
+    "longest": "Longest Streak",
+    "days": "Days",
+    "keepGoing": "Keep going!",
+    "broken": "Streak broken",
+    "startNew": "Start a new streak!"
+  },
+  "joker": {
+    "title": "Joker",
+    "available": "Available",
+    "used": "Used",
+    "use": "Use joker",
+    "description": "Use a joker to skip a day",
+    "noJokersLeft": "No jokers left",
+    "upgradeForMore": "Upgrade for more jokers"
+  },
+  "navigation": {
+    "home": "Home",
+    "archive": "Archive",
+    "profile": "Profile"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "notifications": "Notifications",
+    "subscription": "Subscription",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "support": "Support",
+    "version": "Version"
+  },
+  "subscription": {
+    "free": "Free",
+    "basic": "Basic",
+    "pro": "Pro",
+    "upgrade": "Upgrade",
+    "current": "Current plan",
+    "basicPrice": "$0.99/month",
+    "proPrice": "$2.99/month",
+    "basicFeatures": "1 joker per week",
+    "proFeatures": "2 jokers per week + Exclusive features"
+  },
+  "errors": {
+    "generic": "An error occurred",
+    "network": "Network error",
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found"
+  }
+}
