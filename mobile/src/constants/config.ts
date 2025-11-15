@@ -45,4 +45,5 @@ export const STORAGE_KEYS = {
   STREAK_DATA: '@papyr_streak_data',
   COMMITMENTS: '@papyr_commitments',
   JOKER_USAGE: '@papyr_joker_usage',
+  IS_GUEST_MODE: '@papyr_is_guest_mode',
 } as const;

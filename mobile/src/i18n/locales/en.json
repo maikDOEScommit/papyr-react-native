@@ -1,14 +1,13 @@
 {
   "common": {
-    "appName": "PAPYR",
-    "continue": "Continue",
-    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "An error occurred",
     "save": "Save",
+    "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success"
+    "ok": "OK",
+    "retry": "Retry"
   },
   "auth": {
     "login": "Login",
@@ -16,89 +15,99 @@
     "logout": "Logout",
     "email": "Email",
     "password": "Password",
-    "emailPlaceholder": "your@email.com",
-    "passwordPlaceholder": "Your password",
-    "forgotPassword": "Forgot password?",
+    "forgotPassword": "Forgot Password?",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
-    "signInWithGoogle": "Sign in with Google",
-    "signInWithApple": "Sign in with Apple",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "emailPlaceholder": "your@email.com",
+    "passwordPlaceholder": "Enter password",
     "loginError": "Login failed",
-    "registerError": "Registration failed",
-    "invalidEmail": "Invalid email address",
-    "weakPassword": "Password must be at least 6 characters"
+    "registerError": "Registration failed"
   },
-  "wolfHour": {
-    "title": "Wolf Hour",
-    "active": "Wolf Hour is active!",
-    "inactive": "Wolf Hour starts at 8:00 PM",
-    "timeUntilStart": "Starts in",
-    "timeUntilEnd": "Ends in",
-    "uploadNow": "Upload now!",
-    "cannotUpload": "Uploads only during Wolf Hour (8:00 PM - 2:00 AM)",
-    "description": "Uploads are only possible between 8:00 PM and 2:00 AM"
+  "home": {
+    "title": "PAPYR",
+    "welcome": "Welcome back!",
+    "todayCommitment": "Today's Commitment",
+    "noCommitment": "No commitment today yet",
+    "createCommitment": "Create Commitment",
+    "takePhoto": "Take Photo",
+    "currentStreak": "Current Streak",
+    "days": "Days",
+    "wolfHour": "Wolf Hour",
+    "wolfHourActive": "Wolf Hour is active! (20:00 - 02:00)",
+    "wolfHourInactive": "Wolf Hour is not active"
+  },
+  "camera": {
+    "title": "Take Photo",
+    "takePhoto": "Take Photo",
+    "retake": "Retake",
+    "usePhoto": "Use Photo",
+    "noCameraPermission": "No camera permission",
+    "requestPermission": "Request Permission",
+    "flip": "Flip Camera"
   },
   "commitment": {
-    "title": "Commitment",
-    "upload": "Upload commitment",
-    "takePhoto": "Take photo",
-    "selectPhoto": "Select photo",
-    "goalPlaceholder": "What's your goal for today?",
-    "uploadSuccess": "Commitment uploaded successfully!",
-    "uploadError": "Upload failed",
-    "noGoalText": "Please enter a goal text",
-    "noImage": "Please select an image",
-    "todayCommitment": "Today's Commitment",
-    "viewAll": "View all"
+    "title": "Upload Commitment",
+    "goalText": "What is your goal?",
+    "goalPlaceholder": "Describe your commitment...",
+    "upload": "Upload",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Commitment created successfully!",
+    "uploadError": "Upload error"
   },
-  "streak": {
-    "title": "Streak",
-    "current": "Current Streak",
-    "longest": "Longest Streak",
-    "days": "Days",
-    "keepGoing": "Keep going!",
-    "broken": "Streak broken",
-    "startNew": "Start a new streak!"
+  "archive": {
+    "title": "Archive",
+    "noCommitments": "No commitments yet",
+    "viewDetails": "View Details",
+    "createdAt": "Created at",
+    "duringWolfHour": "During Wolf Hour"
   },
-  "joker": {
-    "title": "Joker",
-    "available": "Available",
-    "used": "Used",
-    "use": "Use joker",
-    "description": "Use a joker to skip a day",
-    "noJokersLeft": "No jokers left",
-    "upgradeForMore": "Upgrade for more jokers"
-  },
-  "navigation": {
-    "home": "Home",
-    "archive": "Archive",
-    "profile": "Profile"
-  },
-  "settings": {
-    "title": "Settings",
-    "language": "Language",
-    "notifications": "Notifications",
+  "profile": {
+    "title": "Profile",
+    "settings": "Settings",
     "subscription": "Subscription",
-    "privacy": "Privacy",
-    "terms": "Terms",
-    "support": "Support",
-    "version": "Version"
-  },
-  "subscription": {
+    "language": "Language",
+    "german": "Deutsch",
+    "english": "English",
+    "currentStreak": "Current Streak",
+    "longestStreak": "Longest Streak",
+    "totalCommitments": "Total Commitments",
+    "jokers": "Jokers",
+    "jokersRemaining": "Remaining Jokers",
+    "subscriptionTier": "Subscription Tier",
     "free": "Free",
     "basic": "Basic",
     "pro": "Pro",
-    "upgrade": "Upgrade",
-    "current": "Current plan",
-    "basicPrice": "$0.99/month",
-    "proPrice": "$2.99/month",
-    "basicFeatures": "1 joker per week",
-    "proFeatures": "2 jokers per week + Exclusive features"
+    "upgradePlan": "Upgrade Plan",
+    "logout": "Logout"
   },
-  "errors": {
-    "generic": "An error occurred",
-    "network": "Network error",
-    "unauthorized": "Unauthorized",
-    "notFound": "Not found"
+  "subscription": {
+    "title": "Subscription",
+    "choosePlan": "Choose Plan",
+    "currentPlan": "Current Plan",
+    "features": "Features",
+    "upgrade": "Upgrade",
+    "freePlan": {
+      "name": "Free",
+      "feature1": "Unlimited Commitments",
+      "feature2": "Wolf Hour Access",
+      "feature3": "Basic Streak Tracking"
+    },
+    "basicPlan": {
+      "name": "Basic",
+      "price": "€0.99 / month",
+      "feature1": "All Free Features",
+      "feature2": "1 Joker per 7-day streak",
+      "feature3": "Advanced Statistics"
+    },
+    "proPlan": {
+      "name": "Pro",
+      "price": "€2.99 / month",
+      "feature1": "All Basic Features",
+      "feature2": "2 Jokers per 7-day streak",
+      "feature3": "Priority Support",
+      "feature4": "Early Access to New Features"
+    }
   }
 }

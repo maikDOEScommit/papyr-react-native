@@ -1,14 +1,13 @@
 {
   "common": {
-    "appName": "PAPYR",
-    "continue": "Weiter",
-    "cancel": "Abbrechen",
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
     "save": "Speichern",
+    "cancel": "Abbrechen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
-    "loading": "Lädt...",
-    "error": "Fehler",
-    "success": "Erfolgreich"
+    "ok": "OK",
+    "retry": "Erneut versuchen"
   },
   "auth": {
     "login": "Anmelden",
@@ -16,89 +15,99 @@
     "logout": "Abmelden",
     "email": "E-Mail",
     "password": "Passwort",
-    "emailPlaceholder": "deine@email.de",
-    "passwordPlaceholder": "Dein Passwort",
     "forgotPassword": "Passwort vergessen?",
     "noAccount": "Noch kein Konto?",
     "hasAccount": "Bereits ein Konto?",
-    "signInWithGoogle": "Mit Google anmelden",
-    "signInWithApple": "Mit Apple anmelden",
+    "signUp": "Konto erstellen",
+    "signIn": "Anmelden",
+    "emailPlaceholder": "deine@email.com",
+    "passwordPlaceholder": "Passwort eingeben",
     "loginError": "Anmeldung fehlgeschlagen",
-    "registerError": "Registrierung fehlgeschlagen",
-    "invalidEmail": "Ungültige E-Mail-Adresse",
-    "weakPassword": "Passwort muss mindestens 6 Zeichen lang sein"
+    "registerError": "Registrierung fehlgeschlagen"
   },
-  "wolfHour": {
-    "title": "Wolf Hour",
-    "active": "Wolf Hour ist aktiv!",
-    "inactive": "Wolf Hour beginnt um 20:00 Uhr",
-    "timeUntilStart": "Beginnt in",
-    "timeUntilEnd": "Endet in",
-    "uploadNow": "Jetzt hochladen!",
-    "cannotUpload": "Uploads nur während der Wolf Hour (20:00 - 02:00 Uhr)",
-    "description": "Uploads sind nur zwischen 20:00 und 02:00 Uhr möglich"
+  "home": {
+    "title": "PAPYR",
+    "welcome": "Willkommen zurück!",
+    "todayCommitment": "Heutiges Commitment",
+    "noCommitment": "Noch kein Commitment heute",
+    "createCommitment": "Commitment erstellen",
+    "takePhoto": "Foto aufnehmen",
+    "currentStreak": "Aktuelle Serie",
+    "days": "Tage",
+    "wolfHour": "Wolf Hour",
+    "wolfHourActive": "Wolf Hour ist aktiv! (20:00 - 02:00)",
+    "wolfHourInactive": "Wolf Hour ist nicht aktiv"
+  },
+  "camera": {
+    "title": "Foto aufnehmen",
+    "takePhoto": "Foto aufnehmen",
+    "retake": "Erneut aufnehmen",
+    "usePhoto": "Foto verwenden",
+    "noCameraPermission": "Keine Kamera-Berechtigung",
+    "requestPermission": "Berechtigung anfordern",
+    "flip": "Kamera wechseln"
   },
   "commitment": {
-    "title": "Commitment",
-    "upload": "Commitment hochladen",
-    "takePhoto": "Foto aufnehmen",
-    "selectPhoto": "Foto auswählen",
-    "goalPlaceholder": "Was ist dein Ziel für heute?",
-    "uploadSuccess": "Commitment erfolgreich hochgeladen!",
-    "uploadError": "Upload fehlgeschlagen",
-    "noGoalText": "Bitte gib einen Zieltext ein",
-    "noImage": "Bitte wähle ein Bild aus",
-    "todayCommitment": "Heutiges Commitment",
-    "viewAll": "Alle anzeigen"
+    "title": "Commitment hochladen",
+    "goalText": "Was ist dein Ziel?",
+    "goalPlaceholder": "Beschreibe dein Commitment...",
+    "upload": "Hochladen",
+    "uploading": "Wird hochgeladen...",
+    "uploadSuccess": "Commitment erfolgreich erstellt!",
+    "uploadError": "Fehler beim Hochladen"
   },
-  "streak": {
-    "title": "Streak",
-    "current": "Aktuelle Streak",
-    "longest": "Längste Streak",
-    "days": "Tage",
-    "keepGoing": "Weiter so!",
-    "broken": "Streak unterbrochen",
-    "startNew": "Starte eine neue Streak!"
+  "archive": {
+    "title": "Archiv",
+    "noCommitments": "Noch keine Commitments",
+    "viewDetails": "Details anzeigen",
+    "createdAt": "Erstellt am",
+    "duringWolfHour": "Während Wolf Hour"
   },
-  "joker": {
-    "title": "Joker",
-    "available": "Verfügbar",
-    "used": "Verwendet",
-    "use": "Joker verwenden",
-    "description": "Verwende einen Joker um einen Tag zu überspringen",
-    "noJokersLeft": "Keine Joker mehr verfügbar",
-    "upgradeForMore": "Upgrade für mehr Joker"
-  },
-  "navigation": {
-    "home": "Home",
-    "archive": "Archiv",
-    "profile": "Profil"
-  },
-  "settings": {
-    "title": "Einstellungen",
+  "profile": {
+    "title": "Profil",
+    "settings": "Einstellungen",
+    "subscription": "Abonnement",
     "language": "Sprache",
-    "notifications": "Benachrichtigungen",
-    "subscription": "Abo",
-    "privacy": "Datenschutz",
-    "terms": "AGB",
-    "support": "Support",
-    "version": "Version"
-  },
-  "subscription": {
+    "german": "Deutsch",
+    "english": "English",
+    "currentStreak": "Aktuelle Serie",
+    "longestStreak": "Längste Serie",
+    "totalCommitments": "Gesamt Commitments",
+    "jokers": "Joker",
+    "jokersRemaining": "Verbleibende Joker",
+    "subscriptionTier": "Abonnement-Stufe",
     "free": "Kostenlos",
     "basic": "Basic",
     "pro": "Pro",
-    "upgrade": "Upgrade",
-    "current": "Aktuelles Abo",
-    "basicPrice": "0,99 €/Monat",
-    "proPrice": "2,99 €/Monat",
-    "basicFeatures": "1 Joker pro Woche",
-    "proFeatures": "2 Joker pro Woche + Exklusive Features"
+    "upgradePlan": "Plan upgraden",
+    "logout": "Abmelden"
   },
-  "errors": {
-    "generic": "Ein Fehler ist aufgetreten",
-    "network": "Netzwerkfehler",
-    "unauthorized": "Nicht autorisiert",
-    "notFound": "Nicht gefunden"
+  "subscription": {
+    "title": "Abonnement",
+    "choosePlan": "Plan auswählen",
+    "currentPlan": "Aktueller Plan",
+    "features": "Funktionen",
+    "upgrade": "Upgraden",
+    "freePlan": {
+      "name": "Kostenlos",
+      "feature1": "Unbegrenzte Commitments",
+      "feature2": "Wolf Hour Zugang",
+      "feature3": "Basis Streak Tracking"
+    },
+    "basicPlan": {
+      "name": "Basic",
+      "price": "0,99 € / Monat",
+      "feature1": "Alle kostenlosen Funktionen",
+      "feature2": "1 Joker pro 7-Tage-Serie",
+      "feature3": "Erweiterte Statistiken"
+    },
+    "proPlan": {
+      "name": "Pro",
+      "price": "2,99 € / Monat",
+      "feature1": "Alle Basic Funktionen",
+      "feature2": "2 Joker pro 7-Tage-Serie",
+      "feature3": "Prioritäts-Support",
+      "feature4": "Früher Zugang zu neuen Features"
+    }
   }
 }

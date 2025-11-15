@@ -1,15 +1,22 @@
 // Profile Screen - User settings and profile
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, Card } from '../components';
 import { useAuth } from '../contexts/AuthContext';
 import { COLORS } from '../constants/colors';
 import { changeLanguage } from '../i18n';
+import InspirationBrowser from '../components/InspirationBrowser';
+import ShopScreen from './ShopScreen';
+import RulesScreen from './RulesScreen';
 
 const ProfileScreen = () => {
   const { t, i18n } = useTranslation();
   const { user, signOut } = useAuth();
+
+  const [showInspiration, setShowInspiration] = useState(false);
+  const [showShop, setShowShop] = useState(false);
+  const [showRules, setShowRules] = useState(false);
 
   const handleSignOut = async () => {
     Alert.alert(
@@ -38,43 +45,83 @@ const ProfileScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* User Info */}
-      <Card style={styles.card}>
-        <Text style={styles.sectionTitle}>Profil</Text>
-        <Text style={styles.email}>{user?.email}</Text>
-        <Text style={styles.subscription}>
-          {t('subscription.current')}: {t(`subscription.${user?.subscription || 'free'}`)}
-        </Text>
-      </Card>
+    <>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        {/* User Info */}
+        <Card style={styles.card}>
+          <Text style={styles.sectionTitle}>Profil</Text>
+          <Text style={styles.email}>{user?.email}</Text>
+          <Text style={styles.subscription}>
+            {t('subscription.current')}: {t(`subscription.${user?.subscription || 'free'}`)}
+          </Text>
+        </Card>
 
-      {/* Settings */}
-      <Card style={styles.card}>
-        <Text style={styles.sectionTitle}>{t('settings.title')}</Text>
+        {/* App Features */}
+        <Card style={styles.card}>
+          <Text style={styles.sectionTitle}>Funktionen</Text>
 
-        <View style={styles.settingRow}>
-          <Text style={styles.settingLabel}>{t('settings.language')}</Text>
           <Button
-            title={i18n.language === 'de' ? '🇩🇪 DE' : '🇬🇧 EN'}
-            onPress={toggleLanguage}
+            title="💡 Inspiration"
+            onPress={() => setShowInspiration(true)}
             variant="outline"
+            fullWidth
+            style={styles.featureButton}
+          />
+
+          <Button
+            title="🃏 Shop"
+            onPress={() => setShowShop(true)}
+            variant="outline"
+            fullWidth
+            style={styles.featureButton}
+          />
+
+          <Button
+            title="📜 Die Regeln"
+            onPress={() => setShowRules(true)}
+            variant="outline"
+            fullWidth
+            style={styles.featureButton}
+          />
+        </Card>
+
+        {/* Settings */}
+        <Card style={styles.card}>
+          <Text style={styles.sectionTitle}>{t('settings.title')}</Text>
+
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>{t('settings.language')}</Text>
+            <Button
+              title={i18n.language === 'de' ? '🇩🇪 DE' : '🇬🇧 EN'}
+              onPress={toggleLanguage}
+              variant="outline"
+            />
+          </View>
+        </Card>
+
+        {/* Actions */}
+        <View style={styles.actions}>
+          <Button
+            title={t('auth.logout')}
+            onPress={handleSignOut}
+            variant="outline"
+            fullWidth
           />
         </View>
-      </Card>
 
-      {/* Actions */}
-      <View style={styles.actions}>
-        <Button
-          title={t('auth.logout')}
-          onPress={handleSignOut}
-          variant="outline"
-          fullWidth
-        />
-      </View>
+        {/* Version */}
+        <Text style={styles.version}>Version 1.0.0</Text>
+      </ScrollView>
 
-      {/* Version */}
-      <Text style={styles.version}>Version 1.0.0</Text>
-    </ScrollView>
+      {/* Modals */}
+      <InspirationBrowser
+        isVisible={showInspiration}
+        onClose={() => setShowInspiration(false)}
+      />
+
+      {showShop && <ShopScreen onClose={() => setShowShop(false)} />}
+      {showRules && <RulesScreen onClose={() => setShowRules(false)} />}
+    </>
   );
 };
 
@@ -113,6 +160,9 @@ const styles = StyleSheet.create({
   settingLabel: {
     fontSize: 16,
     color: COLORS.textPrimary,
+  },
+  featureButton: {
+    marginBottom: 12,
   },
   actions: {
     marginTop: 32,

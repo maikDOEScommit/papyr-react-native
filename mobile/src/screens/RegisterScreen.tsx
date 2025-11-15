@@ -8,6 +8,8 @@ import {
   Platform,
   ScrollView,
   Alert,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +18,8 @@ import { Button, Input } from '../components';
 import { useAuth } from '../contexts/AuthContext';
 import { RootStackParamList } from '../types';
 import { COLORS } from '../constants/colors';
+import { signInWithOAuth } from '../services/supabase';
+import { Linking } from 'react-native';
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -25,7 +29,7 @@ type RegisterScreenNavigationProp = NativeStackNavigationProp<
 const RegisterScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<RegisterScreenNavigationProp>();
-  const { signUp } = useAuth();
+  const { signUp, skipLogin } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -84,16 +88,64 @@ const RegisterScreen = () => {
       await signUp(email, password);
       Alert.alert(
         t('common.success'),
-        'Registrierung erfolgreich! Bitte bestätige deine E-Mail.'
+        'Registrierung erfolgreich! Bitte bestätige deine E-Mail-Adresse, um dich anmelden zu können. Überprüfe dein Postfach (auch Spam-Ordner).'
       );
     } catch (error: any) {
       console.error('Register error:', error);
+
+      // Provide user-friendly error messages
+      let errorMessage = error.message || t('auth.registerError');
+
+      if (error.message?.includes('User already registered')) {
+        errorMessage = 'Diese E-Mail-Adresse ist bereits registriert. Bitte melde dich an oder verwende eine andere E-Mail.';
+      } else if (error.message?.includes('Password should be at least')) {
+        errorMessage = 'Das Passwort muss mindestens 6 Zeichen lang sein.';
+      }
+
       Alert.alert(
         t('common.error'),
-        error.message || t('auth.registerError')
+        errorMessage
       );
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleRegister = async () => {
+    try {
+      setLoading(true);
+      const { url } = await signInWithOAuth('google');
+      if (url) {
+        await Linking.openURL(url);
+      }
+    } catch (error: any) {
+      console.error('Google register error:', error);
+      Alert.alert(
+        t('common.error'),
+        error.message || 'Google-Registrierung fehlgeschlagen'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSkipLogin = async () => {
+    if (Platform.OS === 'web') {
+      // On web, skip directly without alert (web doesn't support Alert.alert well)
+      await skipLogin();
+    } else {
+      // On mobile, show confirmation dialog
+      Alert.alert(
+        'Als Gast fortfahren',
+        'Möchtest du die App ohne Anmeldung nutzen? Deine Daten werden nur lokal gespeichert.',
+        [
+          { text: 'Abbrechen', style: 'cancel' },
+          {
+            text: 'Fortfahren',
+            onPress: async () => await skipLogin(),
+          },
+        ]
+      );
     }
   };
 
@@ -102,6 +154,11 @@ const RegisterScreen = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      {/* Skip Button - Top Right */}
+      <TouchableOpacity style={styles.skipButton} onPress={handleSkipLogin}>
+        <Text style={styles.skipButtonText}>Überspringen</Text>
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
@@ -109,7 +166,11 @@ const RegisterScreen = () => {
         <View style={styles.content}>
           {/* Logo/Title */}
           <View style={styles.header}>
-            <Text style={styles.title}>{t('common.appName')}</Text>
+            <Image
+              source={require('../../assets/PAPYR.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
             <Text style={styles.subtitle}>{t('auth.register')}</Text>
           </View>
 
@@ -152,6 +213,22 @@ const RegisterScreen = () => {
               loading={loading}
               fullWidth
             />
+
+            {/* OAuth Divider */}
+            <View style={styles.divider}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>oder</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            {/* Google Button */}
+            <Button
+              title="Mit Google registrieren"
+              onPress={handleGoogleRegister}
+              loading={loading}
+              fullWidth
+              variant="outline"
+            />
           </View>
 
           {/* Login Link */}
@@ -175,6 +252,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.backgroundPrimary,
   },
+  skipButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    zIndex: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: 'transparent',
+  },
+  skipButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: COLORS.darkBrown,
+  },
   scrollContent: {
     flexGrow: 1,
   },
@@ -186,6 +277,11 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 40,
     alignItems: 'center',
+  },
+  logo: {
+    width: 200,
+    height: 80,
+    marginBottom: 16,
   },
   title: {
     fontSize: 48,
@@ -208,6 +304,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textSecondary,
     marginBottom: 16,
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 24,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: COLORS.borderLight,
+  },
+  dividerText: {
+    marginHorizontal: 16,
+    fontSize: 14,
+    color: COLORS.textSecondary,
   },
 });
 

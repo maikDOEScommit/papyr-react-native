@@ -25,10 +25,28 @@ export const signInWithEmail = async (email: string, password: string) => {
   return data;
 };
 
-export const signUpWithEmail = async (email: string, password: string) => {
+export const signUpWithEmail = async (email: string, password: string, userName?: string) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        display_name: userName,
+      },
+    },
+  });
+
+  if (error) throw error;
+  return data;
+};
+
+export const signInWithOAuth = async (provider: 'google' | 'github' | 'apple') => {
+  const { data, error} = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: 'papyr://auth/callback',
+      skipBrowserRedirect: false,
+    },
   });
 
   if (error) throw error;

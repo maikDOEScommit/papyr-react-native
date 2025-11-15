@@ -11,6 +11,8 @@ interface AuthContextType extends AuthState {
   signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   refreshSession: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  skipLogin: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -84,11 +86,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsAuthenticated(true);
         await saveData(STORAGE_KEYS.USER_DATA, appUser);
       } else {
-        // Try to load user from storage
-        const cachedUser = await getData<User>(STORAGE_KEYS.USER_DATA);
-        if (cachedUser) {
-          setUser(cachedUser);
+        // Check if user is in guest mode
+        const isGuestMode = await getData<boolean>(STORAGE_KEYS.IS_GUEST_MODE);
+        if (isGuestMode) {
           setIsAuthenticated(true);
+          setUser(null);
+        } else {
+          // Try to load user from storage
+          const cachedUser = await getData<User>(STORAGE_KEYS.USER_DATA);
+          if (cachedUser) {
+            setUser(cachedUser);
+            setIsAuthenticated(true);
+          }
         }
       }
     } catch (error) {
@@ -112,6 +121,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(appUser);
         setIsAuthenticated(true);
         await saveData(STORAGE_KEYS.USER_DATA, appUser);
+        // Clear guest mode when user logs in with credentials
+        await removeData(STORAGE_KEYS.IS_GUEST_MODE);
       }
     } catch (error) {
       console.error('Sign in error:', error);
@@ -133,6 +144,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(appUser);
         setIsAuthenticated(true);
         await saveData(STORAGE_KEYS.USER_DATA, appUser);
+        // Clear guest mode when user registers
+        await removeData(STORAGE_KEYS.IS_GUEST_MODE);
       }
     } catch (error) {
       console.error('Sign up error:', error);
@@ -171,6 +184,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'papyr://reset-password',
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error('Reset password error:', error);
+      throw error;
+    }
+  };
+
+  const skipLogin = async () => {
+    // Set guest mode - user can use app without auth
+    setIsAuthenticated(true);
+    setUser(null);
+    // Save guest mode flag to storage so it persists
+    await saveData(STORAGE_KEYS.IS_GUEST_MODE, true);
+  };
+
   const value: AuthContextType = {
     user,
     isLoading,
@@ -179,6 +212,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signUp,
     signOut,
     refreshSession,
+    resetPassword,
+    skipLogin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
